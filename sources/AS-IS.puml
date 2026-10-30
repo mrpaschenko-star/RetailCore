@@ -1,0 +1,114 @@
+@startuml
+!theme plain
+left to right direction
+
+skinparam packageStyle rectangle
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam wrapWidth 180
+skinparam maxMessageSize 180
+
+skinparam rectangle {
+  BorderColor #555555
+  BackgroundColor #FFFFFF
+}
+
+skinparam component {
+  BorderColor #555555
+  BackgroundColor #F8F8F8
+}
+
+skinparam database {
+  BorderColor #555555
+  BackgroundColor #FFF4CC
+}
+
+skinparam queue {
+  BorderColor #555555
+  BackgroundColor #EAF4FF
+}
+
+actor "Клиент" as Customer
+actor "Оператор\nподдержки" as Support
+actor "Бизнес-\nпользователи" as BusinessUsers
+
+cloud "Маркетплейсы" as Marketplaces
+cloud "Платёжные\nпровайдеры" as PaymentProviders
+cloud "Службы\nдоставки" as DeliveryPartners
+cloud "Внутренние\nBI / отчёты" as BI
+
+rectangle "RetailCore AS-IS" as RetailCore {
+
+  component "Интернет-магазин\nи мобильные каналы" as Channels
+
+  package "Java-монолит\nцентральный контур обработки заказов" as JavaMonolith {
+    component "Checkout / Order API" as OrderApi
+    component "Order Processing" as Processing
+    component "Pricing & Promo Logic" as Pricing
+    component "Status Management" as Statuses
+    component "Payment Orchestration" as PaymentOrchestration
+    component "Delivery Routing" as DeliveryRouting
+  }
+
+  database "Oracle\nоперационная БД + часть бизнес-логики + интеграционный слой" as Oracle
+
+  package "Вспомогательные сервисы" as AuxServices {
+    component ".NET integration service\nпартнёрские интеграции" as DotNet
+    component "Python analytics jobs\nаналитические выгрузки" as PyAnalytics
+  }
+
+  queue "Async / batch exchange\nочереди, задания, выгрузки" as AsyncLayer
+
+  component "Admin / Support tools\nручные проверки и корректировки" as AdminTools
+}
+
+Customer --> Channels : оформление заказа,\nпросмотр статуса
+Channels --> OrderApi : create/update order\nсинхронный вызов
+
+Marketplaces --> OrderApi : заказы,\nобновления,\nстатусы
+
+OrderApi --> Pricing : расчёт цены,\nскидок,\nпромо
+OrderApi --> Processing : создание и обработка заказа
+
+Processing --> PaymentOrchestration : инициировать оплату
+Processing --> DeliveryRouting : выбрать доставку
+
+PaymentOrchestration --> PaymentProviders : синхронный вызов\nсоздания платёжной сессии
+DeliveryRouting --> DeliveryPartners : синхронное / смешанное\nрезервирование доставки
+
+Pricing --> Oracle : правила,\nкоэффициенты,\nlegacy promo logic
+Processing --> Oracle : заказ,\nрезерв,\nслужебные таблицы
+Statuses --> Oracle : статусы,\nистория,\nтехнические состояния
+PaymentOrchestration --> Oracle : payment_session_id,\nтехнические атрибуты
+DeliveryRouting --> Oracle : правила маршрутизации,\nпартнёры,\nretry-состояния
+
+Processing --> AsyncLayer : события,\nзадания,\nвыгрузки
+AsyncLayer --> DotNet : обмен для части\nпартнёрских сценариев
+DotNet --> Oracle : staging/shared tables
+DotNet --> DeliveryPartners : партнёрские\nлогистические интеграции
+
+PyAnalytics --> Oracle : прямые выборки,\nвитрины,\nдолгие отчёты
+AsyncLayer --> PyAnalytics : batch/async данные
+BI --> Oracle : отчётные запросы
+BusinessUsers --> BI : управленческие отчёты
+
+Support --> AdminTools : разбор обращений,\nручные действия
+AdminTools --> Statuses : ручная проверка /\nкорректировка статусов
+AdminTools --> Oracle : просмотр технических\nатрибутов заказа
+
+
+
+
+note right of PaymentProviders
+Внешняя зависимость
+end note
+
+note right of DeliveryPartners
+Внешняя зависимость
+end note
+
+
+
+
+
+@enduml

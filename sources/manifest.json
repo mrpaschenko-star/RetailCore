@@ -1,0 +1,58 @@
+[
+  {
+    "file": "interview-support.md",
+    "url": "https://code.s3.yandex.net/solution-architect/interview-support.md?etag=0089eb9e975c8baddd8bced2a0eebfd2",
+    "bytes": 23680,
+    "sha256": "96a459551363772f6be5e26dafc26fc6bd31adda979ab2dfec9621fd294073df",
+    "retrieved_date": "2026-10-30"
+  },
+  {
+    "file": "interview-business.md",
+    "url": "https://code.s3.yandex.net/solution-architect/interview-business.md?etag=95293c2ee67de3abdcd76c7595df6ae0",
+    "bytes": 25410,
+    "sha256": "016d6c6867c6d0e7774d13a6cf7ec38028d183f7365417dfdf87127065c5beb3",
+    "retrieved_date": "2026-10-30"
+  },
+  {
+    "file": "OrderProcessingService.java",
+    "url": "https://code.s3.yandex.net/solution-architect/OrderProcessingService.java?etag=8a6a79650267bc94ca822353e7818fb7",
+    "bytes": 6792,
+    "sha256": "2fc6fb70ed311a123ecb4bcd5f5a0a49e6bd1f845363fe94690a1fedbcff110d",
+    "retrieved_date": "2026-10-30"
+  },
+  {
+    "file": "AS-IS.puml",
+    "url": "https://code.s3.yandex.net/solution-architect/AS-IS.puml?etag=0b4e751678277b242087f4a6a352959b",
+    "bytes": 4512,
+    "sha256": "41185452dc909e5b1c17c32115dfd5f793bb801e48d924c9b9b129dcdfffd3ad",
+    "retrieved_date": "2026-10-30"
+  },
+  {
+    "file": "interview.zip",
+    "url": "https://code.s3.yandex.net/solution-architect/interview.zip?etag=1fcdd25f5408156510ed1d5c4e595678",
+    "bytes": 10278,
+    "sha256": "3fa86f14e0e16f949a5a7869502f01c6f08bc6e153c9d6b637d4af09f4be1ae6",
+    "retrieved_date": "2026-10-30"
+  },
+  {
+    "file": "assignment-extract.md",
+    "origin": "Sprint#4.docx",
+    "original_sha256": "a28e87b5285fa1337c6682a0c03e85608b7409a1530428e8be3efbf37cccc1a8",
+    "note": "Text/table extraction; original document unchanged"
+  },
+  {
+    "file": "interview-1-tech-lead.md",
+    "origin": "interview.zip",
+    "sha256": "b020180b8c46fac8851a8c093956f26cf2ffbf434d3a68d4382f133fa2559069"
+  },
+  {
+    "file": "interview-2-logistics.md",
+    "origin": "interview.zip",
+    "sha256": "33fd194226e93f4171b566241f907b56972c88503818188d1aca6e10fe61af48"
+  },
+  {
+    "file": "interview-3-analytics.md",
+    "origin": "interview.zip",
+    "sha256": "a524c65ef5bba5fb227ab0d3d059cb7a5fa681c5a1de77955f8311fb682f7ade"
+  }
+]
